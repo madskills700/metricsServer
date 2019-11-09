@@ -1,0 +1,19 @@
+# Server configuration
+---
+# This is the default binding address if the service is dockerized.
+ip: 0.0.0.0
+
+# Http port if enableHttp is true.
+httpPort:  6874
+
+# Enable HTTP should be false on official environment.
+enableHttp: true
+
+# Enable HTTPS should be true on official environment.
+enableHttps: false
+
+# Unique service identifier. Used in service registration and discovery etc.
+serviceId: metrics-server-1.0.0
+
+# Flag to enable service registration. Only be true if running as standalone Java jar.
+enableRegistry: false

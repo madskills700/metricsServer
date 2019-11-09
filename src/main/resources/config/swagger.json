@@ -1,0 +1,152 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Sample server for stunents labwork",
+    "version": "1.0.0",
+    "title": "Metrics server",
+    "contact": {
+      "email": "madskills700@gmail.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "localhost:6874",
+  "basePath": "/metrics",
+  "tags": [
+    {
+      "name": "hardware",
+      "description": "Metrics of hardware"
+    },
+    {
+      "name": "files",
+      "description": "Files in specified directory"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/hardware": {
+      "get": {
+        "tags": [
+          "hardware"
+        ],
+        "summary": "Get hardware metrics",
+        "operationId": "getMetrics",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Metrics"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/files": {
+      "get": {
+        "tags": [
+          "files"
+        ],
+        "summary": "Get files in directory on server",
+        "operationId": "getFiles",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Files"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Metrics": {
+      "type": "object",
+      "description": "System metrics",
+      "properties": {
+        "cpuTemp": {
+          "type": "number",
+          "format": "double",
+          "description": "CPU temperature"
+        },
+        "cpuLoad": {
+          "type": "number",
+          "format": "double",
+          "description": "CPU load"
+        },
+        "ramFree": {
+          "type": "number",
+          "format": "double",
+          "description": "Free RAM memory"
+        },
+        "ramTotal": {
+          "type": "number",
+          "format": "double",
+          "description": "Total RAM"
+        },
+        "totalDiskSpace": {
+          "type": "number",
+          "format": "double",
+          "description": "Total disk space"
+        },
+        "freeDiskSpace": {
+          "type": "number",
+          "format": "double",
+          "description": "Free disk space"
+        },
+        "created": {
+          "type": "number",
+          "format": "long",
+          "description": "Created file date"
+        }
+      }
+    },
+    "Files": {
+      "type": "object",
+      "description": "Files in directory",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "File name"
+        },
+        "size": {
+          "type": "number",
+          "format": "double",
+          "description": "File size"
+        },
+        "created": {
+          "type": "number",
+          "format": "long",
+          "description": "Created file date"
+        },
+        "changed": {
+          "type": "number",
+          "format": "long",
+          "description": "Changed file date"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+ERR20002:
+  statusCode: 503
+  code: ERR20002
+  description: Запрос не может быть выполнен. Попробуйте позже
+
+ERR20005:
+  statusCode: 400
+  code: ERR20005
+  description: Некорректный запрос
+
+ERR20008:
+  statusCode: 401
+  code: ERR20008
+  description: Некорректный пароль
+
+ERR20012:
+  statusCode: 401
+  code: ERR20012
+  description: Доступ запрещен
+
+ERR20013:
+  statusCode: 400
+  code: ERR20013
+  description: Ошибка ФН
+
+ERR20014:
+  statusCode: 400
+  code: ERR20014
+  description: Некорректный запрос

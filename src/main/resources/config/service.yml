@@ -1,0 +1,14 @@
+singletons:
+  - com.networknt.server.StartupHookProvider:
+      - ch.madskills.metricsServer.StartupHook
+  - com.networknt.server.ShutdownHookProvider:
+      - ch.madskills.metricsServer.ShutdownHook
+  - com.networknt.handler.HandlerProvider:
+      - com.networknt.example.handler.ExampleHandlerProvider
+  - javax.sql.DataSource:
+      - com.zaxxer.hikari.HikariDataSource:
+          jdbcUrl: "jdbc:postgresql://172.29.2.1:5432/metrics"
+          username: postgres
+          # sample password
+          password: "postgres"
+          maximumPoolSize: 95

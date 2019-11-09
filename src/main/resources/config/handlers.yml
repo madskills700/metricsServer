@@ -1,0 +1,30 @@
+enabled: true
+
+handlers:
+  # Light-framework cross-cutting concerns implemented in the microservice
+  - com.networknt.exception.ExceptionHandler@exception
+  - ch.madskills.metricsServer.handlers.FileHandler@fileHandler
+  - ch.madskills.metricsServer.handlers.MetricsHandler@metricsHandler
+
+chains:
+  default:
+    - exception
+    - traceability
+    - correlation
+    - cors
+    - stateless
+    - header
+    - path
+    - router
+
+paths:
+  - path: '/metrics/hardware'
+    method: 'GET'
+    exec:
+      - default
+      - ch.madskills.metricsServer.handlers.MetricsHandler
+  - path: '/metrics/files'
+    method: 'GET'
+    exec:
+      - default
+      - ch.madskills.metricsServer.handlers.FileHandler
