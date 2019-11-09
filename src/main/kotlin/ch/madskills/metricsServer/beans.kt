@@ -1,7 +1,6 @@
 package ch.madskills.metricsServer
 
 import oshi.SystemInfo
-import java.time.OffsetDateTime
 
 /** Data-class for metrics */
 data class Metrics(
@@ -11,14 +10,15 @@ data class Metrics(
         val ramTotal: Double,
         val totalDiskSpace: Double,
         val freeDiskSpace: Double,
-        val created: OffsetDateTime
+        val created: Long
 )
+
 /** Data-class for store file properties */
 data class FileProperties(
         val name: String,
         val size: Double,
-        val created: OffsetDateTime,
-        val changed: OffsetDateTime
+        val created: Long,
+        val changed: Long
 )
 
 /** Тестовый класс метрик */

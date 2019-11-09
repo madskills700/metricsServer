@@ -52,7 +52,7 @@ dependencies {
     compile "com.networknt:security:$light_4j_version"
     compile "com.h2database:h2:1.4.199"
     compile "com.zaxxer:HikariCP:3.3.1"
-    compile group: 'org.jetbrains.exposed', name: 'exposed', version: '0.17.7'
+    compile "org.jetbrains.exposed:exposed:0.17.7"
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     compile "org.flywaydb:flyway-core:5.2.4"
     compile "com.github.oshi:oshi-dist:4.0.0"

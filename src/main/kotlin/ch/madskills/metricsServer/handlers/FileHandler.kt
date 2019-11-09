@@ -8,9 +8,13 @@ class FileHandler : HttpHandler {
 
     private val logger = LoggerFactory.getLogger(javaClass)
 
-    override fun handleRequest(exchange: HttpServerExchange?) {
+    override fun handleRequest(exchange: HttpServerExchange) {
+        if (exchange.isInIoThread()) {
+            exchange.dispatch(this)
+            return
+        }
         logger.info("handle")
-        exchange?.endExchange()
+        exchange.endExchange()
     }
 
 }

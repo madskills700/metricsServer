@@ -1,14 +1,20 @@
 package ch.madskills.metricsServer
 
+import ch.madskills.metricsServer.handlers.FileHandler
+import ch.madskills.metricsServer.handlers.MetricsHandler
 import com.jayway.jsonpath.Configuration
 import com.jayway.jsonpath.Option
 import com.jayway.jsonpath.spi.json.JacksonJsonProvider
 import com.jayway.jsonpath.spi.json.JsonProvider
 import com.jayway.jsonpath.spi.mapper.JacksonMappingProvider
 import com.jayway.jsonpath.spi.mapper.MappingProvider
+import com.networknt.handler.HandlerProvider
 import com.networknt.handler.LightHttpHandler.logger
 import com.networknt.server.ShutdownHookProvider
 import com.networknt.server.StartupHookProvider
+import io.undertow.Handlers
+import io.undertow.server.HttpHandler
+import io.undertow.util.Methods
 import org.slf4j.LoggerFactory
 import java.util.*
 
@@ -46,6 +52,18 @@ class ShutdownHook: ShutdownHookProvider {
 
     override fun onShutdown() {
         logger.info("Shutdown hook started")
+    }
+
+}
+
+class PathHandlerProvider: HandlerProvider {
+
+    override fun getHandler(): HttpHandler {
+        return Handlers.routing()
+
+                .add(Methods.GET, "/metrics/hardware", MetricsHandler())
+
+                .add(Methods.GET, "/metrics/files", FileHandler())
     }
 
 }
