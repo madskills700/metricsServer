@@ -2,7 +2,7 @@ package ch.madskills.metricsServer
 
 import oshi.SystemInfo
 
-/** Data-class for metrics */
+/** Data-class для сущности metrics */
 data class Metrics(
         val cpuTemp: Double,
         val cpuLoad: Double,
@@ -13,7 +13,7 @@ data class Metrics(
         val created: Long
 )
 
-/** Data-class for store file properties */
+/** Data-class для сущности файла со свойствами */
 data class FileProperties(
         val name: String,
         val size: Double,

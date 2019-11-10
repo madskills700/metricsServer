@@ -18,15 +18,18 @@ import io.undertow.util.Methods
 import org.slf4j.LoggerFactory
 import java.util.*
 
+/** Логгер, который применяется к обоим классам */
 private val logger = LoggerFactory.getLogger("Hooks")
 
-class StartupHook: StartupHookProvider {
+/** Стартовый хук */
+class StartupHook : StartupHookProvider {
 
     override fun onStartup() {
         configJsonPath()
         logger.info("Startup hook started")
     }
 
+    /** Конфигурация json-парсера jackson */
     internal fun configJsonPath() {
         Configuration.setDefaults(object : Configuration.Defaults {
 
@@ -48,7 +51,8 @@ class StartupHook: StartupHookProvider {
     }
 }
 
-class ShutdownHook: ShutdownHookProvider {
+/** Хук, который отрабатывает при завершении работы приложения */
+class ShutdownHook : ShutdownHookProvider {
 
     override fun onShutdown() {
         logger.info("Shutdown hook started")
@@ -56,7 +60,8 @@ class ShutdownHook: ShutdownHookProvider {
 
 }
 
-class PathHandlerProvider: HandlerProvider {
+/** Резолвер хендлеров */
+class PathHandlerProvider : HandlerProvider {
 
     override fun getHandler(): HttpHandler {
         return Handlers.routing()
