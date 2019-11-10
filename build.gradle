@@ -50,11 +50,11 @@ dependencies {
     compile "ch.qos.logback:logback-classic:1.2.3"
     compile "org.apache.commons:commons-text:1.1"
     compile "com.networknt:security:$light_4j_version"
-    compile "com.h2database:h2:1.4.199"
     compile "com.zaxxer:HikariCP:3.3.1"
     compile "org.jetbrains.exposed:exposed:0.17.7"
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     compile "org.flywaydb:flyway-core:5.2.4"
     compile "com.github.oshi:oshi-dist:4.0.0"
     compile "com.github.jengelman.gradle.plugins:shadow:5.1.0"
+    compile "postgresql:postgresql:9.1-901-1.jdbc4"
 }
