@@ -9,12 +9,6 @@ handlers:
 chains:
   default:
     - exception
-    - traceability
-    - correlation
-    - stateless
-    - header
-    - path
-    - router
 
 paths:
   - path: '/metrics/hardware'

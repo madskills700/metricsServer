@@ -1,10 +1,4 @@
 singletons:
-  - com.networknt.server.StartupHookProvider:
-      - ch.madskills.metricsServer.StartupHook
-  - com.networknt.server.ShutdownHookProvider:
-      - ch.madskills.metricsServer.ShutdownHook
-  - com.networknt.handler.HandlerProvider:
-      - ch.madskills.metricsServer.PathHandlerProvider
   - javax.sql.DataSource:
       - com.zaxxer.hikari.HikariDataSource:
           jdbcUrl: "jdbc:postgresql://172.29.2.1:5432/metrics"
@@ -12,3 +6,8 @@ singletons:
           # sample password
           password: "postgres"
           maximumPoolSize: 95
+  - com.networknt.server.StartupHookProvider:
+      - ch.madskills.metricsServer.StartupHook
+      - com.networknt.server.JsonPathStartupHookProvider
+  - com.networknt.server.ShutdownHookProvider:
+      - ch.madskills.metricsServer.ShutdownHook
