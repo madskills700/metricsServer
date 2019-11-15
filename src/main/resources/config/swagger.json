@@ -136,10 +136,13 @@
           "format": "double",
           "description": "File size"
         },
-        "created": {
-          "type": "number",
-          "format": "long",
-          "description": "Created file date"
+        "isDirectory": {
+          "type": "boolean",
+          "description": "Indicates this file is directory"
+        },
+        "isExecutable": {
+          "type": "boolean",
+          "description": "Indicates this file is executable"
         },
         "changed": {
           "type": "number",

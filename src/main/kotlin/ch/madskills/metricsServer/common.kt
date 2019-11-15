@@ -24,9 +24,13 @@ val log = LoggerFactory.getLogger("server")
 /** Проперти */
 val props = Properties()
 
+/** Инициализация пропертей */
+fun initProperties() {
+    props.load(object {}.javaClass.getResourceAsStream("/config/project.properties"))
+}
+
 /** Подготовить коннектор к БД */
 fun prepareDb() {
-    props.load(object {}.javaClass.getResourceAsStream("/config/db.properties"))
     with(ds as HikariDataSource) {
         password = props.getProperty("password")
         jdbcUrl = props.getProperty("url")

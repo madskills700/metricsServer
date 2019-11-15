@@ -15,6 +15,7 @@ data class Metrics(
 data class FileProperties(
         val name: String,
         val size: Double,
-        val created: Long,
+        val isDirectory: Boolean,
+        val isExecutable: Boolean,
         val changed: Long
 )

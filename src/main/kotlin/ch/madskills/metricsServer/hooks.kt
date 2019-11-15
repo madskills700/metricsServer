@@ -16,6 +16,8 @@ class StartupHook : StartupHookProvider {
         // StatrupHook инжектится быстрее, чем инициализируется логгер
         // это касается и shutdown хука
         println("Startup hook is injected")
+        // инициализация конфига
+        initProperties()
         // конфигурация и миграция БД
         prepareDb()
         migrateDb()
