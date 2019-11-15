@@ -1,12 +1,15 @@
 package ch.madskills.metricsServer.handlers
 
 import ch.madskills.metricsServer.Metrics
+import ch.madskills.metricsServer.MetricsTable
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.undertow.server.HttpHandler
 import io.undertow.server.HttpServerExchange
 import io.undertow.util.HttpString
+import org.jetbrains.exposed.sql.ResultRow
+import org.jetbrains.exposed.sql.selectAll
+import org.jetbrains.exposed.sql.transactions.transaction
 import org.slf4j.LoggerFactory
-import oshi.SystemInfo
 
 /**
  * Класс-хендлер на запрос метрик
@@ -17,7 +20,7 @@ class MetricsHandler : HttpHandler {
     /** Логгер */
     private val logger = LoggerFactory.getLogger(javaClass)
     /** Маппер json */
-    private val mapper : ObjectMapper = ObjectMapper()
+    private val mapper: ObjectMapper = ObjectMapper()
 
     override fun handleRequest(exchange: HttpServerExchange) {
         if (exchange.isInIoThread()) {
@@ -25,17 +28,23 @@ class MetricsHandler : HttpHandler {
             return
         }
 
-        val sysInfo = SystemInfo()
-        val cpuTemp = sysInfo.hardware.sensors.cpuTemperature
-        val cpuLoad = sysInfo.hardware.processor.getSystemLoadAverage(3)[1]
-        val ramFree = sysInfo.hardware.memory.available.toDouble() / 1024 / 1024 / 1024
-        val ramTotal = sysInfo.hardware.memory.total.toDouble() / 1024 / 1024 / 1024
-        val totalDiskSpace = sysInfo.operatingSystem.fileSystem.fileStores[0].totalSpace.toDouble() / 1000 / 1024 / 1024
-        val freeDiskSpace = sysInfo.operatingSystem.fileSystem.fileStores[0].usableSpace.toDouble() / 1000 / 1024 / 1024
-        val created = System.currentTimeMillis()
+        val metricsList = ArrayList<Metrics>()
+        transaction {
+            val query = MetricsTable.selectAll().limit(500)
+            metricsList.addAll(query.map { it.toMestrics() })
+        }
 
         exchange.responseHeaders.add(HttpString("content-type"), "application/json")
-        exchange.responseSender.send(mapper.writeValueAsString(Metrics(cpuTemp, cpuLoad, ramFree, ramTotal, totalDiskSpace, freeDiskSpace, created)))
+        exchange.responseSender.send(mapper.writeValueAsString(metricsList))
     }
 
+    fun ResultRow.toMestrics() = Metrics(
+            cpuTemp = this[MetricsTable.cpuTemp],
+            cpuLoad = this[MetricsTable.cpuLoad],
+            ramFree = this[MetricsTable.ramFree],
+            ramTotal = this[MetricsTable.ramTotal],
+            totalDiskSpace = this[MetricsTable.totalDiskSpace],
+            freeDiskSpace = this[MetricsTable.freeDiskSpace],
+            created = this[MetricsTable.created].millis
+    )
 }

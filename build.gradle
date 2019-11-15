@@ -56,5 +56,6 @@ dependencies {
     compile "org.flywaydb:flyway-core:5.2.4"
     compile "com.github.oshi:oshi-dist:4.0.0"
     compile "com.github.jengelman.gradle.plugins:shadow:5.1.0"
-    compile "postgresql:postgresql:9.1-901-1.jdbc4"
+    compile 'org.postgresql:postgresql:42.2.8'
+
 }
